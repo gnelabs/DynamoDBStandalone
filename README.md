@@ -11,8 +11,10 @@ credentials.
 But what if you want to perform integration testing across microservices? What if there is no local 
 development machine? I built this package to include a deployable docker container that puts a Nginx 
 reverse proxy in front of the Jetty webserver provided by Dynamodb-local. This way, security can be configured 
-and you're not running a wide open API endpoint over the internet. You get a Dynamodb endpoint complete 
+and you're not running a wide open API endpoint over the internet. You get a Dynamodb endpoint completely 
 outside of the AWS cloud.
+
+This package should be used for testing purposes only, do not use in production applications.
 
 ## What's Included
 
@@ -30,9 +32,10 @@ outside of the AWS cloud.
 ### Docker
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
 https://docs.docker.com/get-docker/
 
-## Docker-compose
+### Docker-compose
 
 https://docs.docker.com/compose/install/
 
