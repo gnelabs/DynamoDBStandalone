@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    #Expose port 8000 (default for dynamodb-local) to docker networking layer.
+    expose:
+      - "8000"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    #Runs into permissions issues if user is not root.
+    user: root
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  nginx-reverse-proxy:
+    image: nginx
+    volumes:
+      - ./templates:/etc/nginx/templates
+    #Open port 80 between host machine and docker.
+    #Open this port on your firewall to allow for remote access.
+    ports:
+      - "80:80"
+    #Create an alias within this docker container to the other one running dynamodb-local.
+    #This way, nginx can pass data to port 8000 on the docker networking layer.
+    links:
+      - "dynamodb-local:dynamodb"

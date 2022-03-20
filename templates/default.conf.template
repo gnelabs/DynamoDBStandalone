@@ -1,0 +1,14 @@
+server {
+  listen       80;
+  server_name  dynamodbstandalone.example.com;
+
+  location / {
+    proxy_http_version 1.1;
+
+    if ($http_x_integ_authorization != "Bearer examplel1QiLCJhbGciOiJIUzI1Nc3MiOiJPbmxpbmUgSldUIchangeME") {
+      return 401;
+    }
+
+    proxy_pass      http://dynamodb:8000;
+  }
+ }
